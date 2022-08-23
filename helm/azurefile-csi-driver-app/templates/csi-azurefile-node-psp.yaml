@@ -39,7 +39,7 @@ spec:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: csi-{{ .Values.rbac.name }}-psp
+  name: csi-{{ .Values.rbac.name }}-node-psp
 rules:
   - apiGroups:
       - extensions
@@ -60,6 +60,6 @@ subjects:
     namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
-  name: csi-{{ .Values.rbac.name }}-psp
+  name: csi-{{ .Values.rbac.name }}-node-psp
   apiGroup: rbac.authorization.k8s.io
 {{ end }}
