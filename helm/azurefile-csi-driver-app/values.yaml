@@ -128,6 +128,7 @@ node:
   livenessProbe:
     healthPort: 29613
   logLevel: 5
+  maxUnavailable: 1
 
 snapshot:
   enabled: false
