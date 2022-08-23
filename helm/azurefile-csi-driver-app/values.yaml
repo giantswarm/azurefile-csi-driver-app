@@ -134,11 +134,11 @@ snapshot:
   enabled: false
   image:
     csiSnapshotter:
-      repository: /oss/kubernetes-csi/csi-snapshotter
+      repository: /giantswarm/csi-snapshotter
       tag: v5.0.1
       pullPolicy: IfNotPresent
     csiSnapshotController:
-      repository: /oss/kubernetes-csi/snapshot-controller
+      repository: /giantswarm/snapshot-controller
       tag: v5.0.1
       pullPolicy: IfNotPresent
   snapshotController:
