@@ -3,7 +3,7 @@ appVersion: 1.20.0
 description: A Helm chart to run Azure CSI driver for Azure File.
 home: https://github.com/giantswarm/azurefile-csi-driver-app
 name: azurefile-csi-driver-app
-version: [[ .Version ]]
+version: 1.0.0
 restrictions:
   clusterSingleton: true
   fixedNamespace: kube-system
