@@ -1,0 +1,28 @@
+version: 2.1
+orbs:
+  architect: giantswarm/architect@4.24.0
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - architect/push-to-app-catalog:
+          context: architect
+          name: "push-to-control-plane-app-catalog"
+          app_catalog: "control-plane-catalog"
+          app_catalog_test: "control-plane-test-catalog"
+          chart: "azurefile-csi-driver-app"
+          filters:
+            # Trigger the job also on git tag.
+            tags:
+              only: /^v.*/
+      - architect/push-to-app-catalog:
+          context: architect
+          name: "push-to-default-app-catalog"
+          app_catalog: "default-catalog"
+          app_catalog_test: "default-test-catalog"
+          chart: "azurefile-csi-driver-app"
+          filters:
+            # Trigger the job also on git tag.
+            tags:
+              only: /^v.*/

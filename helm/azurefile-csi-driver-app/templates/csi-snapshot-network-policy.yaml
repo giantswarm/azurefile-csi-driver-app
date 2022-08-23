@@ -1,0 +1,19 @@
+{{- if .Values.snapshot.enabled -}}
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ .Values.snapshot.snapshotController.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.snapshot.snapshotController.name }}
+    {{- include "azurefile.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.snapshot.snapshotController.name}}
+      {{- include "azurefile.selectorLabels" . | nindent 6 }}
+  egress:
+  - {}
+  policyTypes:
+  - Egress
+{{ end }}
