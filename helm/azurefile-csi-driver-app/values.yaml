@@ -9,27 +9,27 @@ image:
   baseRepo: docker.io
   azurefile:
     repository: /giantswarm/azurefile-csi
-    tag: v1.20.0
+    tag: v1.26.0
     pullPolicy: IfNotPresent
   csiProvisioner:
     repository: /giantswarm/csi-provisioner
-    tag: v3.2.0
+    tag: v3.3.0
     pullPolicy: IfNotPresent
   csiAttacher:
     repository: /giantswarm/csi-attacher
-    tag: v3.5.0
+    tag: v4.0.0
     pullPolicy: IfNotPresent
   csiResizer:
     repository: /giantswarm/csi-resizer
-    tag: v1.5.0
+    tag: v1.6.0
     pullPolicy: IfNotPresent
   livenessProbe:
     repository: /giantswarm/livenessprobe
-    tag: v2.7.0
+    tag: v2.8.0
     pullPolicy: IfNotPresent
   nodeDriverRegistrar:
     repository: /giantswarm/csi-node-driver-registrar
-    tag: v2.5.1
+    tag: v2.6.2
     pullPolicy: IfNotPresent
 
 ## Reference to one or more secrets to be used when pulling images
@@ -65,6 +65,10 @@ controller:
   runOnControlPlane: false
   attachRequired: false
   logLevel: 5
+  labels: {}
+  annotations: {}
+  podLabels: {}
+  podAnnotations: {}
   resources:
     csiProvisioner:
       limits:
@@ -118,6 +122,9 @@ controller:
     - key: "node-role.kubernetes.io/controlplane"
       operator: "Exists"
       effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
 
 node:
   cloudConfigSecretName: azure-cloud-provider
@@ -144,6 +151,10 @@ snapshot:
   snapshotController:
     name: csi-snapshot-controller
     replicas: 2
+    labels: {}
+    annotations: {}
+    podLabels: {}
+    podAnnotations: {}
     resources:
       limits:
         cpu: 1
@@ -160,6 +171,8 @@ driver:
   customUserAgent: ""
   userAgentSuffix: "OSS-helm"
   azureGoSDKLogLevel: "" # available values: ""(no logs), DEBUG, INFO, WARNING, ERROR
+  httpsProxy: ""
+  httpProxy: ""
 
 linux:
   enabled: true
@@ -169,6 +182,10 @@ linux:
   kubeconfig: ""
   distro: debian # available values: debian, fedora
   mountPermissions: 0777
+  labels: {}
+  annotations: {}
+  podLabels: {}
+  podAnnotations: {}
   resources:
     livenessProbe:
       limits:
@@ -206,16 +223,20 @@ windows:
   dsName: csi-azurefile-node-win # daemonset name
   kubelet: 'C:\var\lib\kubelet'
   kubeconfig: ""
+  labels: {}
+  annotations: {}
+  podLabels: {}
+  podAnnotations: {}
   resources:
     livenessProbe:
       limits:
-        memory: 100Mi
+        memory: 150Mi
       requests:
         cpu: 10m
         memory: 40Mi
     nodeDriverRegistrar:
       limits:
-        memory: 100Mi
+        memory: 150Mi
       requests:
         cpu: 30m
         memory: 40Mi
