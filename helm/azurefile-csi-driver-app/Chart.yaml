@@ -4,7 +4,8 @@ description: A Helm chart to run Azure CSI driver for Azure File.
 icon: https://s.giantswarm.io/app-icons/azure/1/dark.svg
 home: https://github.com/giantswarm/azurefile-csi-driver-app
 name: azurefile-csi-driver-app
-version: [[ .Version ]]
+version: 0.0.0-dev
+#version: [[ .Version ]]
 restrictions:
   clusterSingleton: true
   fixedNamespace: kube-system

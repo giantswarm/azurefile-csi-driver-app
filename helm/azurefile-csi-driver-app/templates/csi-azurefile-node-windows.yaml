@@ -1,4 +1,5 @@
 {{- if .Values.windows.enabled}}
+{{- $proxy := deepCopy .Values.cluster.proxy |  mustMerge .Values.proxy }}
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
@@ -154,13 +155,19 @@ spec:
                   optional: true
             - name: CSI_ENDPOINT
               value: unix://C:\\csi\\csi.sock
-            {{- if ne .Values.driver.httpsProxy "" }}
-            - name: HTTPS_PROXY
-              value: {{ .Values.driver.httpsProxy }}
-            {{- end }}
-            {{- if ne .Values.driver.httpProxy "" }}
+            {{- if and $proxy.noProxy $proxy.http $proxy.https }}
+            - name: NO_PROXY
+              value: {{ $proxy.noProxy }}
+            - name: no_proxy
+              value: {{ $proxy.noProxy }}
             - name: HTTP_PROXY
-              value: {{ .Values.driver.httpProxy }}
+              value: {{ $proxy.http }}
+            - name: http_proxy
+              value: {{ $proxy.http }}
+            - name: HTTPS_PROXY
+              value: {{ $proxy.https }}
+            - name: https_proxy
+              value: {{ $proxy.https }}
             {{- end }}
             - name: KUBE_NODE_NAME
               valueFrom:
