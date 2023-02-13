@@ -7,6 +7,23 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+* Sync with upstream 1.26.0 chart
+* bump components versions
+  * azurefile-csi to `1.26.0`
+  * csi-provisioner to `3.3.0`
+  * csi-attacher to `4.0.0`
+  * csi-resizer to `1.6.0`
+  * livenessprobe to `2.8.0`
+  * csi-node-driver-registrar to `2.6.2`
+* increase api qps limit of csi-provisioner and csi-attacher 
+* increase api qps for azurefile kubeclient
+* add support for labels, annotations, podLabels and podAnnotations 
+* Remove `list` rbac for secrets
+* add node-role.kubernetes.io/control-plane toleration
+* add support for http/s proxy 
+
 ## [1.20.0-gs1] - 2022-08-29
 
 ### Added
