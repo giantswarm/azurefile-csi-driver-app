@@ -195,7 +195,7 @@ spec:
             periodSeconds: 30
           env:
             - name: AZURE_CREDENTIAL_FILE
-              value: /etc/kubernetes/config/azure.yaml
+              value: {{ if eq .Values.provider "capz" }}/etc/kubernetes/azure.json{{ else }}/etc/kubernetes/config/azure.yaml{{ end }}
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
             {{- if and $proxy.noProxy $proxy.http $proxy.https }}

@@ -272,6 +272,8 @@ cluster:
     http:
     https:
 
+provider: vintage
+
 test:
   image:
     name: giantswarm/alpine-testing
