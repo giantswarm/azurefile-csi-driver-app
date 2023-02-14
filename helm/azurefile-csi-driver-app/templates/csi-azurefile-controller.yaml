@@ -1,3 +1,4 @@
+{{- $proxy := deepCopy .Values.cluster.proxy |  mustMerge .Values.proxy }}
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -6,6 +7,13 @@ metadata:
   labels:
     app: {{ .Values.controller.name }}
     {{- include "azurefile.labels" . | nindent 4 }}
+{{- with .Values.controller.labels }}
+{{ . | toYaml | indent 4 }}
+{{- end }}
+{{- with .Values.controller.annotations }}
+  annotations:
+{{ . | toYaml | indent 4 }}
+{{- end }}
 spec:
   replicas: {{ .Values.controller.replicas }}
   selector:
@@ -17,6 +25,13 @@ spec:
       labels:
         {{- include "azurefile.labels" . | nindent 8 }}
         app: {{ .Values.controller.name }}
+{{- with .Values.controller.podLabels }}
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.controller.podAnnotations }}
+      annotations:
+{{ toYaml . | indent 8 }}
+{{- end }}
     spec:
       hostNetwork: {{ .Values.controller.hostNetwork }}
       serviceAccountName: {{ .Values.serviceAccount.controller }}
@@ -58,6 +73,8 @@ spec:
             - "--leader-election-namespace={{ .Release.Namespace }}"
             - "--timeout=300s"
             - "--extra-create-metadata=true"
+            - "--kube-api-qps=50"
+            - "--kube-api-burst=100"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -78,6 +95,8 @@ spec:
             - "-timeout=120s"
             - "-leader-election"
             - "--leader-election-namespace={{ .Release.Namespace }}"
+            - "--kube-api-qps=50"
+            - "--kube-api-burst=100"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -176,9 +195,23 @@ spec:
             periodSeconds: 30
           env:
             - name: AZURE_CREDENTIAL_FILE
-              value: /etc/kubernetes/config/azure.yaml
+              value: {{ .Values.linux.azure_credential_file | default ( ternary "/etc/kubernetes/azure.json" "/etc/kubernetes/config/azure.yaml" (eq .Values.provider "capz") ) }}
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
+            {{- if and $proxy.noProxy $proxy.http $proxy.https }}
+            - name: NO_PROXY
+              value: {{ $proxy.noProxy }}
+            - name: no_proxy
+              value: {{ $proxy.noProxy }}
+            - name: HTTP_PROXY
+              value: {{ $proxy.http }}
+            - name: http_proxy
+              value: {{ $proxy.http }}
+            - name: HTTPS_PROXY
+              value: {{ $proxy.https }}
+            - name: https_proxy
+              value: {{ $proxy.https }}
+            {{- end }}
             - name: AZURE_GO_SDK_LOG_LEVEL
               value: {{ .Values.driver.azureGoSDKLogLevel }}
           imagePullPolicy: {{ .Values.image.azurefile.pullPolicy }}

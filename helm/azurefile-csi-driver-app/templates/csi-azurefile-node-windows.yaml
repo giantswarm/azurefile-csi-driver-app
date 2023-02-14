@@ -1,4 +1,5 @@
 {{- if .Values.windows.enabled}}
+{{- $proxy := deepCopy .Values.cluster.proxy |  mustMerge .Values.proxy }}
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
@@ -7,6 +8,13 @@ metadata:
   labels:
     app: {{ .Values.windows.dsName }}
     {{- include "azurefile.labels" . | nindent 4 }}
+{{- with .Values.windows.labels }}
+{{ . | toYaml | indent 4 }}
+{{- end }}
+{{- with .Values.windows.annotations }}
+  annotations:
+{{ . | toYaml | indent 4 }}
+{{- end }}
 spec:
   updateStrategy:
     rollingUpdate:
@@ -21,6 +29,13 @@ spec:
       labels:
         app: {{ .Values.windows.dsName }}
         {{- include "azurefile.labels" . | nindent 8 }}
+{{- with .Values.windows.podLabels }}
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.windows.podAnnotations }}
+      annotations:
+{{ toYaml . | indent 8 }}
+{{- end }}
     spec:
       serviceAccountName: {{ .Values.serviceAccount.node }}
 {{- with .Values.windows.tolerations }}
@@ -140,6 +155,20 @@ spec:
                   optional: true
             - name: CSI_ENDPOINT
               value: unix://C:\\csi\\csi.sock
+            {{- if and $proxy.noProxy $proxy.http $proxy.https }}
+            - name: NO_PROXY
+              value: {{ $proxy.noProxy }}
+            - name: no_proxy
+              value: {{ $proxy.noProxy }}
+            - name: HTTP_PROXY
+              value: {{ $proxy.http }}
+            - name: http_proxy
+              value: {{ $proxy.http }}
+            - name: HTTPS_PROXY
+              value: {{ $proxy.https }}
+            - name: https_proxy
+              value: {{ $proxy.https }}
+            {{- end }}
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
