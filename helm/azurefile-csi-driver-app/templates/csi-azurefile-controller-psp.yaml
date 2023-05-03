@@ -65,4 +65,4 @@ roleRef:
   kind: ClusterRole
   name: csi-{{ .Values.rbac.name }}-controller-psp
   apiGroup: rbac.authorization.k8s.io
-{{ end }}
+{{- end }}
