@@ -1,3 +1,4 @@
+{{- if le (int .Capabilities.KubeVersion.Minor) 24 }}
 {{- if .Values.linux.enabled}}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
@@ -62,4 +63,5 @@ roleRef:
   kind: ClusterRole
   name: csi-{{ .Values.rbac.name }}-node-psp
   apiGroup: rbac.authorization.k8s.io
+{{ end }}
 {{ end }}
