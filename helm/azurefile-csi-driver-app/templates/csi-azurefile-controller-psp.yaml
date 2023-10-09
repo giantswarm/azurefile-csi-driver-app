@@ -1,4 +1,5 @@
 {{- if le (int .Capabilities.KubeVersion.Minor) 24 }}
+{{- if not .Values.global.podSecurityStandards.enforced }}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -65,4 +66,5 @@ roleRef:
   kind: ClusterRole
   name: csi-{{ .Values.rbac.name }}-controller-psp
   apiGroup: rbac.authorization.k8s.io
+{{- end }}
 {{- end }}
