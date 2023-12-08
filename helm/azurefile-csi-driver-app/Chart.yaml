@@ -10,3 +10,5 @@ restrictions:
   fixedNamespace: kube-system
   gpuInstances: false
   compatibleProviders: [azure]
+annotations:
+  application.giantswarm.io/team: phoenix
