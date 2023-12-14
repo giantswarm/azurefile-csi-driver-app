@@ -7,10 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.26.0-gs3] - 2023-12-14
+
 ### Added
 
 - Add team label in resources.
 - Add `global.podSecurityStandards.enforced` value for PSS migration.
+- Add storage classes for CAPZ.
 
 ## [1.26.0-gs2] - 2023-05-03
 
@@ -44,7 +47,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Initial release with upstream version 1.20.
 
-[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs2...HEAD
+[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs3...HEAD
+[1.26.0-gs3]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs2...v1.26.0-gs3
 [1.26.0-gs2]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs1...v1.26.0-gs2
 [1.26.0-gs1]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.20.0-gs1...v1.26.0-gs1
 [1.20.0-gs1]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v0.0.0...v1.20.0-gs1
