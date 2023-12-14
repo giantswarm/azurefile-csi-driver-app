@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Add `global.podSecurityStandards.enforced` value for PSS migration.
+- Add storage classes for CAPZ.
 
 ## [1.26.0-gs2] - 2023-05-03
 
