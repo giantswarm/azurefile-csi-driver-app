@@ -11,6 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
+- Add team label in resources.
 - Add `global.podSecurityStandards.enforced` value for PSS migration.
 - Add storage classes for CAPZ.
 

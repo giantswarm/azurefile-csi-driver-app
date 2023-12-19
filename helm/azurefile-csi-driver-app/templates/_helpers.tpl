@@ -28,6 +28,7 @@ Common labels.
 app.kubernetes.io/component: csi-driver
 app.kubernetes.io/part-of: {{ template "azurefile.name" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
