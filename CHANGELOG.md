@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+- Configure `gsoci.azurecr.io` as the default container image registry.
+
 ## [1.26.0-gs3] - 2023-12-14
 
 ### Added
@@ -39,7 +41,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 * Remove `list` rbac for secrets
 * add node-role.kubernetes.io/control-plane toleration
 * add support for http/s proxy 
-* Make `AZURE_CREDENTIAL_FILE` depends on `.Values.provider` 
+* Make `AZURE_CREDENTIAL_FILE` depends on `.Values.provider`
 
 ## [1.20.0-gs1] - 2022-08-29
 

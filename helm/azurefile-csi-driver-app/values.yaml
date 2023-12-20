@@ -6,7 +6,7 @@ name: azurefile-csi
 serviceType: managed
 
 image:
-  baseRepo: docker.io
+  baseRepo: gsoci.azurecr.io
   azurefile:
     repository: /giantswarm/azurefile-csi
     tag: v1.26.0
