@@ -7,9 +7,21 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+- Configure `gsoci.azurecr.io` as the default container image registry.
+
+## [1.26.0-gs3] - 2023-12-14
+
+### Added
+
+- Add team label in resources.
+- Add `global.podSecurityStandards.enforced` value for PSS migration.
+- Add storage classes for CAPZ.
+
+## [1.26.0-gs2] - 2023-05-03
+
 ### Changed
 
-- Configure `gsoci.azurecr.io` as the default container image registry.
+- Disable PSPs for k8s 1.25 and newer.
 
 ## [1.26.0-gs1] - 2023-02-14
 
