@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.26.0-gs4] - 2024-01-23
+
 ### Changed
 
 - Configure `gsoci.azurecr.io` as the default container image registry.
@@ -52,7 +54,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Initial release with upstream version 1.20.
 
-[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs3...HEAD
+[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs4...HEAD
+[1.26.0-gs4]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs3...v1.26.0-gs4
 [1.26.0-gs3]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs2...v1.26.0-gs3
 [1.26.0-gs2]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs1...v1.26.0-gs2
 [1.26.0-gs1]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.20.0-gs1...v1.26.0-gs1
