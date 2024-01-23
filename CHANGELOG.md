@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Configure `gsoci.azurecr.io` as the default container image registry.
+- Add `imagePullPolicy` to snapshotter.
+
+## [1.26.0-gs3] - 2023-12-14
+
 ### Added
 
 - Add `global.podSecurityStandards.enforced` value for PSS migration.
