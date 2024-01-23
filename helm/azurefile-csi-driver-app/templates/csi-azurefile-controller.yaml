@@ -119,6 +119,7 @@ spec:
           env:
             - name: ADDRESS
               value: /csi/csi.sock
+          imagePullPolicy: {{ .Values.snapshot.image.csiSnapshotter.pullPolicy }}
           volumeMounts:
             - name: socket-dir
               mountPath: /csi

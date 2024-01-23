@@ -7,7 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
 - Configure `gsoci.azurecr.io` as the default container image registry.
+- Add `imagePullPolicy` to containers that didn't have it.
 
 ## [1.26.0-gs3] - 2023-12-14
 
