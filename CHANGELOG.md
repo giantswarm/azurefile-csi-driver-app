@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `af-premium-private` and `af-standard-private` storage classes using private endpoints to connect to the storage account.
+
 ## [1.26.0-gs4] - 2024-01-23
 
 ### Changed
