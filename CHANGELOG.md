@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.26.0-gs5] - 2024-04-15
+
 ### Added
 
 - Add `af-premium-private` and `af-standard-private` storage classes using private endpoints to connect to the storage account.
@@ -58,7 +60,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Initial release with upstream version 1.20.
 
-[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs4...HEAD
+[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs5...HEAD
+[1.26.0-gs5]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs4...v1.26.0-gs5
 [1.26.0-gs4]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs3...v1.26.0-gs4
 [1.26.0-gs3]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs2...v1.26.0-gs3
 [1.26.0-gs2]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs1...v1.26.0-gs2
