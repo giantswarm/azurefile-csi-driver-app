@@ -20,6 +20,15 @@ spec:
     matchLabels:
       app: {{ .Values.snapshot.snapshotController.name}}
       {{- include "azurefile.selectorLabels" . | nindent 6 }}
+  # the snapshot controller won't be marked as ready if the v1 CRDs are unavailable
+  # in #504 the snapshot-controller will exit after around 7.5 seconds if it
+  # can't find the v1 CRDs so this value should be greater than that
+  minReadySeconds: 15
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: {{ .Values.snapshot.snapshotController.strategyType }}
   template:
     metadata:
       labels:
@@ -62,4 +71,8 @@ spec:
             - "--leader-election-namespace={{ .Release.Namespace }}"
           resources: {{- toYaml .Values.snapshot.snapshotController.resources | nindent 12 }}
           imagePullPolicy: {{ .Values.snapshot.image.csiSnapshotController.pullPolicy }}
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
 {{- end -}}

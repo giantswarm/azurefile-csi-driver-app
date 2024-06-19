@@ -20,11 +20,16 @@ spec:
     matchLabels:
       {{- include "azurefile.selectorLabels" . | nindent 6 }}
       app: {{ .Values.controller.name }}
+  strategy:
+    type: {{ .Values.controller.strategyType }}
   template:
     metadata:
       labels:
         {{- include "azurefile.labels" . | nindent 8 }}
         app: {{ .Values.controller.name }}
+        {{- if .Values.workloadIdentity.clientID }}
+        azure.workload.identity/use: "true"
+        {{- end }}
 {{- with .Values.controller.podLabels }}
 {{ toYaml . | indent 8 }}
 {{- end }}
@@ -71,10 +76,11 @@ spec:
             - "--csi-address=$(ADDRESS)"
             - "--leader-election"
             - "--leader-election-namespace={{ .Release.Namespace }}"
-            - "--timeout=300s"
+            - "--timeout=1200s"
             - "--extra-create-metadata=true"
             - "--kube-api-qps=50"
             - "--kube-api-burst=100"
+            - "--feature-gates=HonorPVReclaimPolicy=true"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -83,28 +89,10 @@ spec:
             - mountPath: /csi
               name: socket-dir
           resources: {{- toYaml .Values.controller.resources.csiProvisioner | nindent 12 }}
-        - name: csi-attacher
-{{- if hasPrefix "/" .Values.image.csiAttacher.repository }}
-          image: "{{ .Values.image.baseRepo }}{{ .Values.image.csiAttacher.repository }}:{{ .Values.image.csiAttacher.tag }}"
-{{- else }}
-          image: "{{ .Values.image.csiAttacher.repository }}:{{ .Values.image.csiAttacher.tag }}"
-{{- end }}
-          args:
-            - "-v=2"
-            - "-csi-address=$(ADDRESS)"
-            - "-timeout=120s"
-            - "-leader-election"
-            - "--leader-election-namespace={{ .Release.Namespace }}"
-            - "--kube-api-qps=50"
-            - "--kube-api-burst=100"
-          env:
-            - name: ADDRESS
-              value: /csi/csi.sock
-          imagePullPolicy: {{ .Values.image.csiAttacher.pullPolicy }}
-          volumeMounts:
-          - mountPath: /csi
-            name: socket-dir
-          resources: {{- toYaml .Values.controller.resources.csiAttacher | nindent 12 }}
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
         - name: csi-snapshotter
 {{- if hasPrefix "/" .Values.snapshot.image.csiSnapshotter.repository }}
           image: "{{ .Values.image.baseRepo }}{{ .Values.snapshot.image.csiSnapshotter.repository }}:{{ .Values.snapshot.image.csiSnapshotter.tag }}"
@@ -119,11 +107,14 @@ spec:
           env:
             - name: ADDRESS
               value: /csi/csi.sock
-          imagePullPolicy: {{ .Values.snapshot.image.csiSnapshotter.pullPolicy }}
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
           resources: {{- toYaml .Values.controller.resources.csiSnapshotter | nindent 12 }}
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
         - name: csi-resizer
 {{- if hasPrefix "/" .Values.image.csiResizer.repository }}
           image: "{{ .Values.image.baseRepo }}{{ .Values.image.csiResizer.repository }}:{{ .Values.image.csiResizer.tag }}"
@@ -146,6 +137,10 @@ spec:
             - name: socket-dir
               mountPath: /csi
           resources: {{- toYaml .Values.controller.resources.csiResizer | nindent 12 }}
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
         - name: liveness-probe
 {{- if hasPrefix "/" .Values.image.livenessProbe.repository }}
           image: "{{ .Values.image.baseRepo }}{{ .Values.image.livenessProbe.repository }}:{{ .Values.image.livenessProbe.tag }}"
@@ -155,13 +150,21 @@ spec:
           args:
             - --csi-address=/csi/csi.sock
             - --probe-timeout=3s
+{{- if eq .Values.controller.hostNetwork true }}
+            - --http-endpoint=localhost:{{ .Values.controller.livenessProbe.healthPort }}
+{{- else }}
             - --health-port={{ .Values.controller.livenessProbe.healthPort }}
+{{- end }}
             - --v=2
           imagePullPolicy: {{ .Values.image.livenessProbe.pullPolicy }}
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
           resources: {{- toYaml .Values.controller.resources.livenessProbe | nindent 12 }}
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
         - name: azurefile
 {{- if hasPrefix "/" .Values.image.azurefile.repository }}
           image: "{{ .Values.image.baseRepo }}{{ .Values.image.azurefile.repository }}:{{ .Values.image.azurefile.tag }}"
@@ -180,17 +183,24 @@ spec:
             - "--user-agent-suffix={{ .Values.driver.userAgentSuffix }}"
             - "--allow-empty-cloud-config={{ .Values.controller.allowEmptyCloudConfig }}"
           ports:
-            - containerPort: {{ .Values.controller.livenessProbe.healthPort }}
-              name: healthz
-              protocol: TCP
             - containerPort: {{ .Values.controller.metricsPort }}
               name: metrics
               protocol: TCP
+{{- if ne .Values.controller.hostNetwork true }}
+            - containerPort: {{ .Values.controller.livenessProbe.healthPort }}
+              name: healthz
+              protocol: TCP
+{{- end }}
           livenessProbe:
             failureThreshold: 5
             httpGet:
               path: /healthz
+{{- if eq .Values.controller.hostNetwork true }}
+              host: localhost
+              port: {{ .Values.controller.livenessProbe.healthPort }}
+{{- else }}
               port: healthz
+{{- end }}
             initialDelaySeconds: 30
             timeoutSeconds: 10
             periodSeconds: 30
@@ -219,6 +229,8 @@ spec:
           volumeMounts:
             - mountPath: /csi
               name: socket-dir
+            - mountPath: /root/.azcopy
+              name: azcopy-dir
             - mountPath: /etc/kubernetes/
               name: azure-cred
             {{- if eq .Values.linux.distro "fedora" }}
@@ -230,8 +242,14 @@ spec:
               readOnly: true
             {{- end }}
           resources: {{- toYaml .Values.controller.resources.azurefile | nindent 12 }}
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
       volumes:
         - name: socket-dir
+          emptyDir: {}
+        - name: azcopy-dir
           emptyDir: {}
         - name: azure-cred
           hostPath:

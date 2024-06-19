@@ -14,4 +14,6 @@ spec:
   volumeLifecycleModes:
     - Persistent
     - Ephemeral
-  fsGroupPolicy: ReadWriteOnceWithFSType
+  fsGroupPolicy: {{ .Values.feature.fsGroupPolicy }}
+  tokenRequests:
+    - audience: api://AzureADTokenExchange

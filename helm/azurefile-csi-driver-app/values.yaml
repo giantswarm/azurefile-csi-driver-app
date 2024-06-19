@@ -15,10 +15,6 @@ image:
     repository: /giantswarm/csi-provisioner
     tag: v4.0.1
     pullPolicy: IfNotPresent
-  csiAttacher:
-    repository: /giantswarm/csi-attacher
-    tag: v4.6.1
-    pullPolicy: IfNotPresent
   csiResizer:
     repository: /giantswarm/csi-resizer
     tag: v1.10.1
@@ -38,7 +34,8 @@ imagePullSecrets: []
 # - name: myRegistryKeySecretName
 
 # -- Custom labels to add into metadata
-customLabels: {}
+customLabels:
+  {}
   # k8s-app: azurefile-csi-driver
 
 serviceAccount:
@@ -57,6 +54,7 @@ controller:
   cloudConfigSecretNamespace: kube-system
   allowEmptyCloudConfig: true
   replicas: 2
+  strategyType: RollingUpdate
   hostNetwork: true # this setting could be disabled if controller does not depend on MSI setting
   metricsPort: 29614
   livenessProbe:
@@ -77,13 +75,6 @@ controller:
       requests:
         cpu: 10m
         memory: 20Mi
-    csiAttacher:
-      limits:
-        cpu: 1
-        memory: 500Mi
-      requests:
-        cpu: 10m
-        memory: 20Mi
     csiResizer:
       limits:
         cpu: 1
@@ -94,7 +85,7 @@ controller:
     csiSnapshotter:
       limits:
         cpu: 1
-        memory: 100Mi
+        memory: 200Mi
       requests:
         cpu: 10m
         memory: 20Mi
@@ -130,27 +121,29 @@ node:
   cloudConfigSecretName: azure-cloud-provider
   cloudConfigSecretNamespace: kube-system
   allowEmptyCloudConfig: true
+  strategyType: RollingUpdate
+  maxUnavailable: 1
   allowInlineVolumeKeyAccessWithIdentity: false
   metricsPort: 29615
   livenessProbe:
     healthPort: 29613
   logLevel: 5
-  maxUnavailable: 1
 
 snapshot:
   enabled: false
   image:
     csiSnapshotter:
       repository: /giantswarm/csi-snapshotter
-      tag: v5.0.1
+      tag: v7.0.2
       pullPolicy: IfNotPresent
     csiSnapshotController:
       repository: /giantswarm/snapshot-controller
-      tag: v5.0.1
+      tag: v7.0.2
       pullPolicy: IfNotPresent
   snapshotController:
     name: csi-snapshot-controller
     replicas: 2
+    strategyType: RollingUpdate
     labels: {}
     annotations: {}
     podLabels: {}
@@ -158,13 +151,15 @@ snapshot:
     resources:
       limits:
         cpu: 1
-        memory: 100Mi
+        memory: 300Mi
       requests:
         cpu: 10m
         memory: 20Mi
 
 feature:
   enableGetVolumeStats: true
+  enableVolumeMountGroup: true
+  fsGroupPolicy: ReadWriteOnceWithFSType
 
 driver:
   name: file.csi.azure.com
@@ -180,6 +175,7 @@ linux:
   kubeconfig: ""
   distro: debian # available values: debian, fedora
   mountPermissions: 0777
+  enableRegistrationProbe: true
   labels: {}
   annotations: {}
   podLabels: {}
@@ -218,9 +214,11 @@ linux:
 
 windows:
   enabled: true
+  useHostProcessContainers: false
   dsName: csi-azurefile-node-win # daemonset name
   kubelet: 'C:\var\lib\kubelet'
   kubeconfig: ""
+  enableRegistrationProbe: true
   labels: {}
   annotations: {}
   podLabels: {}
@@ -258,6 +256,14 @@ windows:
               operator: NotIn
               values:
                 - virtual-kubelet
+
+workloadIdentity:
+  clientID: ""
+  # [optional] If the AAD application or user-assigned managed identity is not in the same tenant as the cluster
+  # then set tenantID with the application or user-assigned managed identity tenant ID
+  tenantID: ""
+
+azureCredentialFileConfigMap: azure-cred-file
 
 # set the HTTP_PROXY, HTTPS_PROXY and NO_PROXY variable
 proxy:
