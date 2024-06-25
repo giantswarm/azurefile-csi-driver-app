@@ -12,7 +12,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Update component versions (sync with upstream chart)
   - `azurefile-csi` to `v1.30.2`
   - `csi-provisioner` to `v4.0.1`
-  - `csi-attacher` to `v4.6.1`
   - `csi-resizer` to `v1.10.1`
   - `livenessprobe` to `v2.12.0`
   - `csi-node-driver-registrar` to `v2.10.1`
