@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the CSI driver"
+    },
+    "serviceType": {
+      "type": "string",
+      "description": "Type of service (managed)",
+      "enum": ["managed"]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "baseRepo": {
+          "type": "string",
+          "description": "Base repository for container images"
+        }
+      }
+    },
+    "controller": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the controller"
+        },
+        "replicas": {
+          "type": "integer",
+          "description": "Number of controller replicas"
+        }
+      }
+    },
+    "global": {
+      "type": "object",
+      "properties": {
+        "podSecurityStandards": {
+          "type": "object",
+          "properties": {
+            "enforced": {
+              "type": "boolean",
+              "description": "Whether pod security standards are enforced"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["name", "serviceType"]
+}
