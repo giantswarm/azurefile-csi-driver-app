@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.31.7-gs1] - 2025-09-02
+
+### Changed
+
+- Chart: Update to upstream v1.31.7.
+
 ## [1.30.10-gs1] - 2025-08-26
 
 ### Changed
@@ -77,7 +83,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Initial release with upstream version 1.20.
 
-[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.30.10-gs1...HEAD
+[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.31.7-gs1...HEAD
+[1.31.7-gs1]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.30.10-gs1...v1.31.7-gs1
 [1.30.10-gs1]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.30.2-gs1...v1.30.10-gs1
 [1.30.2-gs1]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs5...v1.30.2-gs1
 [1.26.0-gs5]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.26.0-gs4...v1.26.0-gs5
