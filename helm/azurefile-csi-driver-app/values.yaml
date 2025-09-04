@@ -5,7 +5,7 @@ image:
   baseRepo: gsoci.azurecr.io
   azurefile:
     repository: /giantswarm/azurefile-csi
-    tag: v1.31.7
+    tag: v1.32.5
     pullPolicy: IfNotPresent
   csiProvisioner:
     repository: /giantswarm/csi-provisioner
@@ -133,11 +133,11 @@ snapshot:
   image:
     csiSnapshotter:
       repository: /giantswarm/csi-snapshotter
-      tag: v8.2.0
+      tag: v8.2.1
       pullPolicy: IfNotPresent
     csiSnapshotController:
       repository: /giantswarm/snapshot-controller
-      tag: v8.2.0
+      tag: v8.2.1
       pullPolicy: IfNotPresent
   snapshotController:
     name: csi-snapshot-controller
