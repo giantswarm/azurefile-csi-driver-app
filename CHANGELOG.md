@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Switch to semver-compatible release name.
+
 ## [1.32.5-gs1] - 2025-09-04
 
 ### Changed
