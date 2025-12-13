@@ -5,23 +5,23 @@ image:
   baseRepo: gsoci.azurecr.io
   azurefile:
     repository: /giantswarm/azurefile-csi
-    tag: v1.32.5
+    tag: v1.34.2
     pullPolicy: IfNotPresent
   csiProvisioner:
     repository: /giantswarm/csi-provisioner
-    tag: v5.2.0
+    tag: v6.0.0
     pullPolicy: IfNotPresent
   csiResizer:
     repository: /giantswarm/csi-resizer
-    tag: v1.13.2
+    tag: v2.0.0
     pullPolicy: IfNotPresent
   livenessProbe:
     repository: /giantswarm/livenessprobe
-    tag: v2.15.0
+    tag: v2.17.0
     pullPolicy: IfNotPresent
   nodeDriverRegistrar:
     repository: /giantswarm/csi-node-driver-registrar
-    tag: v2.13.0
+    tag: v2.15.0
     pullPolicy: IfNotPresent
 
 ## Reference to one or more secrets to be used when pulling images
@@ -133,11 +133,11 @@ snapshot:
   image:
     csiSnapshotter:
       repository: /giantswarm/csi-snapshotter
-      tag: v8.2.1
+      tag: v8.4.0
       pullPolicy: IfNotPresent
     csiSnapshotController:
       repository: /giantswarm/snapshot-controller
-      tag: v8.2.1
+      tag: v8.4.0
       pullPolicy: IfNotPresent
   snapshotController:
     name: csi-snapshot-controller
