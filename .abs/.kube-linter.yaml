@@ -1,0 +1,18 @@
+checks:
+  exclude:
+    # CSI drivers require hostNetwork for kubelet communication
+    - "host-network"
+    # CSI node daemonset requires privileged access for file mounting operations
+    - "privileged-container"
+    - "privilege-escalation-container"
+    # CSI drivers need to run as root for file operations
+    - "run-as-non-root"
+    # CSI drivers need writable filesystem for socket and state management
+    - "no-read-only-root-fs"
+    # CSI node requires access to host paths for file mounting
+    - "sensitive-host-mounts"
+    # When using hostNetwork, explicit containerPort declarations aren't required
+    - "liveness-port"
+    # Anti-affinity is configured via topology constraints, not pod anti-affinity
+    - "no-anti-affinity"
+
