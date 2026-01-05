@@ -1,0 +1,80 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "serviceType": {
+            "type": "string"
+        },
+        "image": {
+            "type": "object"
+        },
+        "imagePullSecrets": {
+            "type": "array"
+        },
+        "customLabels": {
+            "type": "object"
+        },
+        "serviceAccount": {
+            "type": "object"
+        },
+        "rbac": {
+            "type": "object"
+        },
+        "controller": {
+            "type": "object"
+        },
+        "node": {
+            "type": "object"
+        },
+        "snapshot": {
+            "type": "object"
+        },
+        "feature": {
+            "type": "object"
+        },
+        "driver": {
+            "type": "object"
+        },
+        "linux": {
+            "type": "object"
+        },
+        "windows": {
+            "type": "object"
+        },
+        "workloadIdentity": {
+            "type": "object"
+        },
+        "azureCredentialFileConfigMap": {
+            "type": "string"
+        },
+        "proxy": {
+            "type": "object"
+        },
+        "cluster": {
+            "type": "object"
+        },
+        "provider": {
+            "type": "string"
+        },
+        "test": {
+            "type": "object"
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "podSecurityStandards": {
+                    "type": "object",
+                    "properties": {
+                        "enforced": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
