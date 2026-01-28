@@ -11,5 +11,4 @@ restrictions:
   gpuInstances: false
   compatibleProviders: [azure]
 annotations:
-  application.giantswarm.io/team: phoenix
   io.giantswarm.application.team: phoenix
