@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Removed
+
+- Removed `PodSecurityPolicy`.
+- Removed `global.podSecurityStandards.enforced` helm value.
+
 ### Changed
 
 - Migrate to App Build Suite (ABS).
