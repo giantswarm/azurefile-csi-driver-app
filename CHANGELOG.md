@@ -7,14 +7,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Migrate to App Build Suite (ABS).
+- Chart: Update to upstream v1.35.7.
+
 ### Removed
 
 - Removed `PodSecurityPolicy`.
 - Removed `global.podSecurityStandards.enforced` helm value.
-
-### Changed
-
-- Migrate to App Build Suite (ABS).
 
 ## [2.0.0] - 2025-12-11
 
