@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-09-10
+
 ### Changed
 
 - Migrate to App Build Suite (ABS).
@@ -111,7 +113,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Initial release with upstream version 1.20.
 
-[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.32.5...v2.0.0
 [1.32.5]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.32.5-gs1...v1.32.5
 [1.32.5-gs1]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.31.7-gs1...v1.32.5-gs1
