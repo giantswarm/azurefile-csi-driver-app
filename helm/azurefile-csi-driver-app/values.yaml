@@ -5,7 +5,7 @@ image:
   baseRepo: gsoci.azurecr.io
   azurefile:
     repository: /giantswarm/azurefile-csi
-    tag: v1.35.7
+    tag: v1.35.11
     pullPolicy: IfNotPresent
   csiProvisioner:
     repository: /giantswarm/csi-provisioner
@@ -13,7 +13,7 @@ image:
     pullPolicy: IfNotPresent
   csiResizer:
     repository: /giantswarm/csi-resizer
-    tag: v2.2.0
+    tag: v2.2.1
     pullPolicy: IfNotPresent
   livenessProbe:
     repository: /giantswarm/livenessprobe
