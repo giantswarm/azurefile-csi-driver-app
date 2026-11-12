@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-11-12
+
 ### Changed
 
 - The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
@@ -118,7 +120,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Initial release with upstream version 1.20.
 
-[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.32.5...v2.0.0
 [1.32.5]: https://github.com/giantswarm/azurefile-csi-driver-app/compare/v1.32.5-gs1...v1.32.5
